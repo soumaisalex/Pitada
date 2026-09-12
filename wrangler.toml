@@ -1,0 +1,7 @@
+name = "feirinha-gastronomica"
+compatibility_date = "2026-09-01"
+pages_build_output_dir = "dist"
+
+# As variáveis sensíveis (DATABASE_URL, chaves do Efí, JWT secret) NÃO vão aqui.
+# Configure-as como "Secrets" no painel do Cloudflare Pages (Settings > Environment variables),
+# separadamente para os ambientes de Preview e Production.
