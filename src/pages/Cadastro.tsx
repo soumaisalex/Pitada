@@ -39,7 +39,7 @@ export default function Cadastro() {
 
       <form onSubmit={aoSubmeter}>
         <div className="campo">
-          <label htmlFor="nome">Nome completo</label>
+          <label htmlFor="nome">Nome</label>
           <input id="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
         </div>
         <div className="campo">
