@@ -2,6 +2,14 @@ name = "feirinha-gastronomica"
 compatibility_date = "2026-09-01"
 pages_build_output_dir = "dist"
 
+# Bucket R2 usado para armazenar logos de loja e fotos de produto.
+# Crie o bucket no painel do Cloudflare (R2 > Create bucket, ex: "feirinha-imagens")
+# e depois vincule-o em Settings > Functions > R2 bucket bindings, tanto no
+# ambiente de Preview quanto no de Production, com o nome de variável BUCKET_IMAGENS.
+[[r2_buckets]]
+binding = "BUCKET_IMAGENS"
+bucket_name = "feirinha-imagens"
+
 # As variáveis sensíveis (DATABASE_URL, chaves do Efí, JWT secret) NÃO vão aqui.
 # Configure-as como "Secrets" no painel do Cloudflare Pages (Settings > Environment variables),
 # separadamente para os ambientes de Preview e Production.

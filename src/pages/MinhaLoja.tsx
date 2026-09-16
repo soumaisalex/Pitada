@@ -1,6 +1,7 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, FormEvent, ChangeEvent } from "react";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import { enviarImagem } from "../lib/upload";
 
 interface Loja {
   id: string;
@@ -40,12 +41,14 @@ export default function MinhaLoja() {
   // Formulário de cadastro de loja
   const [nomeLoja, setNomeLoja] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
+  const [enviandoLogo, setEnviandoLogo] = useState(false);
 
   // Formulário de cadastro de produto
   const [nomeProduto, setNomeProduto] = useState("");
   const [descricaoProduto, setDescricaoProduto] = useState("");
   const [valorProduto, setValorProduto] = useState("");
   const [fotoProduto, setFotoProduto] = useState("");
+  const [enviandoFoto, setEnviandoFoto] = useState(false);
   const [categoriaId, setCategoriaId] = useState("");
   const [enviando, setEnviando] = useState(false);
 
@@ -72,6 +75,34 @@ export default function MinhaLoja() {
     carregarTudo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  async function selecionarLogo(evento: ChangeEvent<HTMLInputElement>) {
+    const arquivo = evento.target.files?.[0];
+    if (!arquivo) return;
+    setErro(null);
+    setEnviandoLogo(true);
+    try {
+      setLogoUrl(await enviarImagem(arquivo));
+    } catch (e) {
+      setErro(e instanceof ApiError ? e.message : "Não foi possível enviar a logo.");
+    } finally {
+      setEnviandoLogo(false);
+    }
+  }
+
+  async function selecionarFotoProduto(evento: ChangeEvent<HTMLInputElement>) {
+    const arquivo = evento.target.files?.[0];
+    if (!arquivo) return;
+    setErro(null);
+    setEnviandoFoto(true);
+    try {
+      setFotoProduto(await enviarImagem(arquivo));
+    } catch (e) {
+      setErro(e instanceof ApiError ? e.message : "Não foi possível enviar a foto.");
+    } finally {
+      setEnviandoFoto(false);
+    }
+  }
 
   async function cadastrarLoja(evento: FormEvent) {
     evento.preventDefault();
@@ -148,10 +179,20 @@ export default function MinhaLoja() {
             <input id="nomeLoja" value={nomeLoja} onChange={(e) => setNomeLoja(e.target.value)} required />
           </div>
           <div className="campo">
-            <label htmlFor="logoUrl">URL da logo/imagem (para identificação física na feira)</label>
-            <input id="logoUrl" value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} required />
+            <label htmlFor="logoArquivo">Logo/imagem da loja (para identificação física na feira)</label>
+            <input
+              id="logoArquivo"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={selecionarLogo}
+              required={!logoUrl}
+            />
+            {enviandoLogo && <span className="subtitulo">Enviando imagem...</span>}
+            {logoUrl && !enviandoLogo && (
+              <img src={logoUrl} alt="Pré-visualização da logo" style={{ width: 96, borderRadius: 4, marginTop: "0.5rem" }} />
+            )}
           </div>
-          <button className="botao-principal" type="submit" disabled={enviando}>
+          <button className="botao-principal" type="submit" disabled={enviando || enviandoLogo || !logoUrl}>
             {enviando ? "Cadastrando..." : "Cadastrar loja"}
           </button>
         </form>
@@ -208,8 +249,21 @@ export default function MinhaLoja() {
                   />
                 </div>
                 <div className="campo">
-                  <label htmlFor="fotoProduto">URL da foto</label>
-                  <input id="fotoProduto" value={fotoProduto} onChange={(e) => setFotoProduto(e.target.value)} />
+                  <label htmlFor="fotoArquivo">Foto do produto</label>
+                  <input
+                    id="fotoArquivo"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={selecionarFotoProduto}
+                  />
+                  {enviandoFoto && <span className="subtitulo">Enviando imagem...</span>}
+                  {fotoProduto && !enviandoFoto && (
+                    <img
+                      src={fotoProduto}
+                      alt="Pré-visualização do produto"
+                      style={{ width: 96, borderRadius: 4, marginTop: "0.5rem" }}
+                    />
+                  )}
                 </div>
                 <div className="campo">
                   <label htmlFor="categoriaId">Categoria</label>
@@ -235,7 +289,7 @@ export default function MinhaLoja() {
                     ))}
                   </select>
                 </div>
-                <button className="botao-principal" type="submit" disabled={enviando}>
+                <button className="botao-principal" type="submit" disabled={enviando || enviandoFoto}>
                   {enviando ? "Cadastrando..." : "Cadastrar produto"}
                 </button>
               </form>
