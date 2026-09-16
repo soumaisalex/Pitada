@@ -1,0 +1,35 @@
+name: Enviar certificado mTLS para o Cloudflare
+
+# Acionado manualmente pela aba "Actions" do GitHub — não roda automaticamente.
+# Serve para registrar o certificado do Efí (homologação ou produção) no Cloudflare,
+# gerando o certificate_id necessário para o binding no wrangler.toml.
+on:
+  workflow_dispatch:
+    inputs:
+      nome_certificado:
+        description: "Nome do certificado no Cloudflare (ex: efi-homologacao, efi-producao)"
+        required: true
+        default: "efi-homologacao"
+
+jobs:
+  enviar-certificado:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gravar certificado e chave em arquivos temporários
+        run: |
+          printf '%s' "${{ secrets.EFI_CERT_PEM }}" > cert.pem
+          printf '%s' "${{ secrets.EFI_KEY_PEM }}" > key.pem
+
+      - name: Enviar para o Cloudflare via Wrangler
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler mtls-certificate upload \
+            --cert cert.pem \
+            --key key.pem \
+            --name "${{ inputs.nome_certificado }}"
+
+      - name: Limpar arquivos temporários
+        if: always()
+        run: rm -f cert.pem key.pem
