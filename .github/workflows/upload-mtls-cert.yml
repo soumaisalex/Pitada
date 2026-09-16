@@ -16,16 +16,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Gravar certificado e chave em arquivos temporários
+        env:
+          CERT_CONTENT: ${{ secrets.EFI_CERT_PEM }}
+          KEY_CONTENT: ${{ secrets.EFI_KEY_PEM }}
         run: |
-          printf '%s' "${{ secrets.EFI_CERT_PEM }}" > cert.pem
-          printf '%s' "${{ secrets.EFI_KEY_PEM }}" > key.pem
+          printf '%s' "$CERT_CONTENT" > cert.pem
+          printf '%s' "$KEY_CONTENT" > key.pem
 
       - name: Enviar para o Cloudflare via Wrangler
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          npx wrangler mtls-certificate upload \
+          npx --yes wrangler mtls-certificate upload \
             --cert cert.pem \
             --key key.pem \
             --name "${{ inputs.nome_certificado }}"
