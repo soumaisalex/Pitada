@@ -1,5 +1,5 @@
 import { useState, FormEvent, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
 
@@ -60,6 +60,22 @@ export default function Perfil() {
       </button>
 
       <p className="link-secundario">Histórico de transações — em breve (Fase 4).</p>
+
+      <hr className="divisor" style={{ marginTop: "1rem" }} />
+
+      <p className="link-secundario">
+        <Link to="/eventos">Ver eventos da feirinha</Link>
+      </p>
+      {usuario.isLojista && (
+        <p className="link-secundario">
+          <Link to="/minha-loja">Minha loja</Link>
+        </p>
+      )}
+      {usuario.isAdmin && (
+        <p className="link-secundario">
+          <Link to="/admin/lojas">Admin — Lojas</Link>
+        </p>
+      )}
 
       <hr className="divisor" style={{ marginTop: "1rem" }} />
 

@@ -2,6 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Perfil from "./pages/Perfil";
+import MinhaLoja from "./pages/MinhaLoja";
+import Eventos from "./pages/Eventos";
+import AdminLojas from "./pages/AdminLojas";
 
 export default function App() {
   return (
@@ -9,6 +12,9 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="/perfil" element={<Perfil />} />
+      <Route path="/minha-loja" element={<MinhaLoja />} />
+      <Route path="/eventos" element={<Eventos />} />
+      <Route path="/admin/lojas" element={<AdminLojas />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );

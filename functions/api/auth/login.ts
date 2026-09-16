@@ -49,6 +49,7 @@ export const onRequestPost: PagesFunction<EnvAuth> = async ({ request, env }) =>
       telefone: usuario.telefone,
       chavePix: usuario.chavePix,
       isLojista: usuario.isLojista,
+      isAdmin: usuario.isAdmin,
       saldoPitadas: usuario.saldoPitadas,
     }),
     {

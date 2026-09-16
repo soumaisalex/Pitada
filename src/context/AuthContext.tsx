@@ -9,6 +9,7 @@ export interface Usuario {
   telefone?: string | null;
   chavePix?: string | null;
   isLojista: boolean;
+  isAdmin: boolean;
   saldoPitadas: string;
 }
 

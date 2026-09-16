@@ -31,6 +31,7 @@ export const usuarios = pgTable("usuarios", {
   telefone: text("telefone"),
   chavePix: text("chave_pix"),
   isLojista: boolean("is_lojista").default(false).notNull(),
+  isAdmin: boolean("is_admin").default(false).notNull(),
   saldoPitadas: numeric("saldo_pitadas", { precision: 12, scale: 2 }).default("0").notNull(),
   status: statusUsuarioEnum("status").default("ativo").notNull(),
   criadoEm: timestamp("criado_em").defaultNow().notNull(),

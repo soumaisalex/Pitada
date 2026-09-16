@@ -36,3 +36,10 @@ export async function obterUsuarioAtual(request: Request, env: EnvAuth) {
   const [usuario] = await db.select().from(usuarios).where(eq(usuarios.id, usuarioId)).limit(1);
   return usuario ?? null;
 }
+
+/** Retorna o usuário se for admin, ou null caso contrário (não autenticado ou sem permissão). */
+export async function obterAdminAtual(request: Request, env: EnvAuth) {
+  const usuario = await obterUsuarioAtual(request, env);
+  if (!usuario || !usuario.isAdmin) return null;
+  return usuario;
+}
