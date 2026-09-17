@@ -1,6 +1,6 @@
-# Feirinha Gastronômica
+# Pitada
 
-Sistema de gestão da feirinha gastronômica do condomínio, com moeda virtual própria (Pitada).
+Sistema de gestão da feirinha gastronômica do condomínio, com moeda virtual própria (a Pitada).
 
 ## Stack
 React + Vite · Cloudflare Pages (Functions como API) · Neon (PostgreSQL) · Drizzle ORM · Efí (PSP de pagamentos Pix)
@@ -8,7 +8,7 @@ React + Vite · Cloudflare Pages (Functions como API) · Neon (PostgreSQL) · Dr
 ## Fase 0 — Passo a passo (feito uma vez, manualmente, nas suas contas)
 
 1. **Repositório GitHub**
-   - Crie o repositório (ex: `feirinha-gastronomica`) na sua conta
+   - Crie o repositório (ex: `pitada`) na sua conta
    - Suba este scaffold: `git remote add origin <url>` e `git push -u origin main`
    - Proteja a branch `main`: exigir Pull Request antes de mesclar (Settings → Branches)
 
