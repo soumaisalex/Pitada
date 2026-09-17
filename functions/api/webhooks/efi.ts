@@ -1,6 +1,6 @@
 import { and, eq, sql } from "drizzle-orm";
 import { getDb } from "../../../db/client";
-import { transacoes, usuarios } from "../../../db/schema";
+import { transacoes, usuarios, logsAuditoria } from "../../../db/schema";
 
 interface Env {
   DATABASE_URL: string;
@@ -14,7 +14,24 @@ interface PixNotificado {
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  const corpo = await request.json().catch(() => null) as { pix?: PixNotificado[] } | null;
+  const textoCorpo = await request.text();
+  const db = getDb(env.DATABASE_URL);
+
+  // Log de diagnóstico — grava TUDO que chega aqui, mesmo antes de validar.
+  // Remover depois que confirmarmos que o fluxo está funcionando de ponta a ponta.
+  try {
+    await db.insert(logsAuditoria).values({
+      adminId: null,
+      acao: "webhook_efi_recebido",
+      entidade: "webhook",
+      entidadeId: null,
+      detalhes: { corpoRecebido: textoCorpo.slice(0, 2000) },
+    });
+  } catch {
+    // Se até o log falhar, seguimos o processamento normalmente.
+  }
+
+  const corpo = JSON.parse(textoCorpo || "{}") as { pix?: PixNotificado[] } | null;
 
   // Responde 200 mesmo em payload inesperado — o Efí reenvia notificações que
   // falham, e não queremos reenvios infinitos por causa de um formato que não
@@ -22,8 +39,6 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!corpo?.pix?.length) {
     return new Response(JSON.stringify({ ok: true }), { headers: { "content-type": "application/json" } });
   }
-
-  const db = getDb(env.DATABASE_URL);
 
   for (const pix of corpo.pix) {
     try {
