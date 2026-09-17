@@ -5,6 +5,7 @@ import Perfil from "./pages/Perfil";
 import MinhaLoja from "./pages/MinhaLoja";
 import Eventos from "./pages/Eventos";
 import AdminLojas from "./pages/AdminLojas";
+import AdicionarCredito from "./pages/AdicionarCredito";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <Route path="/minha-loja" element={<MinhaLoja />} />
       <Route path="/eventos" element={<Eventos />} />
       <Route path="/admin/lojas" element={<AdminLojas />} />
+      <Route path="/adicionar-credito" element={<AdicionarCredito />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );

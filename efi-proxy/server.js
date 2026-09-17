@@ -1,5 +1,5 @@
 import express from "express";
-import { criarCobranca, consultarCobranca, testarAutenticacao } from "./lib/efiClient.js";
+import { criarCobranca, consultarCobranca, testarAutenticacao, configurarWebhook } from "./lib/efiClient.js";
 
 const app = express();
 app.use(express.json());
@@ -27,11 +27,11 @@ app.get("/testar-autenticacao", async (_req, res) => {
 
 app.post("/cobrancas", async (req, res) => {
   try {
-    const { valor, chavePixRecebedor, descricao } = req.body;
-    if (!valor || !chavePixRecebedor) {
-      return res.status(400).json({ erro: "Informe valor e chavePixRecebedor." });
+    const { valor, descricao } = req.body;
+    if (!valor) {
+      return res.status(400).json({ erro: "Informe o valor." });
     }
-    const cobranca = await criarCobranca({ valor, chavePixRecebedor, descricao });
+    const cobranca = await criarCobranca({ valor, descricao });
     res.status(201).json(cobranca);
   } catch (erro) {
     res.status(502).json({ erro: erro.message });
@@ -42,6 +42,19 @@ app.get("/cobrancas/:txid", async (req, res) => {
   try {
     const cobranca = await consultarCobranca(req.params.txid);
     res.json(cobranca);
+  } catch (erro) {
+    res.status(502).json({ erro: erro.message });
+  }
+});
+
+// Uso único (ou sempre que a URL do webhook mudar) — configura no Efí para
+// onde ele deve notificar quando um Pix cair na nossa chave.
+app.post("/webhook/configurar", async (req, res) => {
+  try {
+    const { url } = req.body;
+    if (!url) return res.status(400).json({ erro: "Informe a url." });
+    const resultado = await configurarWebhook(url);
+    res.json(resultado);
   } catch (erro) {
     res.status(502).json({ erro: erro.message });
   }

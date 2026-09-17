@@ -55,9 +55,9 @@ export default function Perfil() {
       <p style={{ color: "var(--cor-texto-suave)", marginBottom: 0, fontSize: "0.9rem" }}>Seu saldo</p>
       <p className="saldo">{usuario.saldoPitadas} Pitadas</p>
 
-      <button className="botao-principal" disabled title="Em breve — Fase 3">
-        Adicionar crédito (em breve)
-      </button>
+      <Link to="/adicionar-credito" className="botao-principal" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>
+        Adicionar crédito
+      </Link>
 
       <p className="link-secundario">Histórico de transações — em breve (Fase 4).</p>
 

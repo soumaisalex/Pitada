@@ -69,13 +69,13 @@ async function chamarEfi(caminho, opcoes = {}) {
   return { status: resposta.statusCode, dados };
 }
 
-export async function criarCobranca({ valor, chavePixRecebedor, descricao }) {
+export async function criarCobranca({ valor, descricao }) {
   const { status, dados } = await chamarEfi("/v2/cob", {
     method: "POST",
     body: JSON.stringify({
       calendario: { expiracao: 3600 },
       valor: { original: Number(valor).toFixed(2) },
-      chave: chavePixRecebedor,
+      chave: process.env.EFI_CHAVE_PIX_RECEBEDORA,
       solicitacaoPagador: descricao?.slice(0, 140) || "Crédito de Pitadas",
     }),
   });
@@ -105,5 +105,21 @@ export async function consultarCobranca(txid) {
 
 export async function testarAutenticacao() {
   await obterAccessToken();
+  return { ok: true };
+}
+
+export async function configurarWebhook(urlWebhook) {
+  const { status, dados } = await chamarEfi(
+    `/v2/webhook/${encodeURIComponent(process.env.EFI_CHAVE_PIX_RECEBEDORA)}`,
+    {
+      method: "PUT",
+      body: JSON.stringify({ webhookUrl: urlWebhook }),
+    }
+  );
+
+  if (status !== 200 && status !== 204) {
+    throw new Error(`Falha ao configurar webhook (status ${status}): ${JSON.stringify(dados)}`);
+  }
+
   return { ok: true };
 }

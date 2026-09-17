@@ -90,6 +90,7 @@ export const transacoes = pgTable("transacoes", {
   eventoId: uuid("evento_id").references(() => eventos.id),
   valor: numeric("valor", { precision: 12, scale: 2 }).notNull(),
   taxaPix: numeric("taxa_pix", { precision: 12, scale: 2 }).default("0").notNull(),
+  txidEfi: varchar("txid_efi", { length: 35 }).unique(),
   status: statusTransacaoEnum("status").default("pendente").notNull(),
   expiraEm: timestamp("expira_em"),
   criadoEm: timestamp("criado_em").defaultNow().notNull(),
