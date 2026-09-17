@@ -97,7 +97,7 @@ export default function AdicionarCredito() {
             {cobranca.taxa.toFixed(2)} de taxa Pix) — você recebe {cobranca.valor} Pitadas
           </p>
           <img
-            src={`data:image/png;base64,${cobranca.imagemQrCodeBase64}`}
+            src={cobranca.imagemQrCodeBase64}
             alt="QR code Pix"
             style={{ width: "100%", maxWidth: 260, margin: "1rem 0" }}
           />
