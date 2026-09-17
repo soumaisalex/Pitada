@@ -10,6 +10,12 @@ pages_build_output_dir = "dist"
 binding = "BUCKET_IMAGENS"
 bucket_name = "feirinha-imagens"
 
+# Certificado mTLS usado para autenticar nas APIs do Efí (Pix).
+# Enviado via o workflow .github/workflows/upload-mtls-cert.yml.
+[[mtls_certificates]]
+binding = "MTLS_EFI_HOMOLOGACAO"
+certificate_id = "f3ba219d-1d67-4346-a26d-0fa2744414b1"
+
 # As variáveis sensíveis (DATABASE_URL, chaves do Efí, JWT secret) NÃO vão aqui.
 # Configure-as como "Secrets" no painel do Cloudflare Pages (Settings > Environment variables),
 # separadamente para os ambientes de Preview e Production.
