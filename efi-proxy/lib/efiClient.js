@@ -1,6 +1,7 @@
 import { Agent, request as undiciRequest } from "undici";
 
 const URL_BASE = process.env.EFI_BASE_URL; // ex: https://pix-h.api.efipay.com.br (homologação)
+const TIMEOUT_MS = 20_000;
 
 let agenteMtls = null;
 function obterAgente() {
@@ -10,6 +11,8 @@ function obterAgente() {
         cert: process.env.EFI_CERT_PEM,
         key: process.env.EFI_KEY_PEM,
       },
+      headersTimeout: TIMEOUT_MS,
+      bodyTimeout: TIMEOUT_MS,
     });
   }
   return agenteMtls;
@@ -109,6 +112,7 @@ export async function testarAutenticacao() {
 }
 
 export async function configurarWebhook(urlWebhook) {
+  console.log(`[efi] configurando webhook: ${urlWebhook}`);
   const { status, dados } = await chamarEfi(
     `/v2/webhook/${encodeURIComponent(process.env.EFI_CHAVE_PIX_RECEBEDORA)}`,
     {
@@ -116,6 +120,7 @@ export async function configurarWebhook(urlWebhook) {
       body: JSON.stringify({ webhookUrl: urlWebhook }),
     }
   );
+  console.log(`[efi] resposta da configuração de webhook: status ${status}`);
 
   if (status !== 200 && status !== 204) {
     throw new Error(`Falha ao configurar webhook (status ${status}): ${JSON.stringify(dados)}`);

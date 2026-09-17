@@ -4,6 +4,11 @@ import { criarCobranca, consultarCobranca, testarAutenticacao, configurarWebhook
 const app = express();
 app.use(express.json());
 
+app.use((req, _res, next) => {
+  console.log(`[req] ${req.method} ${req.path}`);
+  next();
+});
+
 // Middleware simples de autenticação — só as Pages Functions do nosso próprio
 // sistema devem conseguir chamar este serviço, nunca deve ficar exposto publicamente.
 app.use((req, res, next) => {
@@ -56,6 +61,7 @@ app.post("/webhook/configurar", async (req, res) => {
     const resultado = await configurarWebhook(url);
     res.json(resultado);
   } catch (erro) {
+    console.error("[erro] /webhook/configurar:", erro);
     res.status(502).json({ erro: erro.message });
   }
 });
