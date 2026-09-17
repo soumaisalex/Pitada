@@ -117,6 +117,7 @@ export async function configurarWebhook(urlWebhook) {
     `/v2/webhook/${encodeURIComponent(process.env.EFI_CHAVE_PIX_RECEBEDORA)}`,
     {
       method: "PUT",
+      headers: { "x-skip-mtls-checking": "true" },
       body: JSON.stringify({ webhookUrl: urlWebhook }),
     }
   );
