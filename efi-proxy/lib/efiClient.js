@@ -106,6 +106,34 @@ export async function consultarCobranca(txid) {
   return dados;
 }
 
+export async function enviarPix({ valor, chaveDestino, idEnvio, infoPagador }) {
+  const { status, dados } = await chamarEfi(`/v3/gn/pix/${idEnvio}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      valor: Number(valor).toFixed(2),
+      pagador: {
+        chave: process.env.EFI_CHAVE_PIX_RECEBEDORA,
+        infoPagador: infoPagador?.slice(0, 140) || "Saque de Pitadas",
+      },
+      favorecido: { chave: chaveDestino },
+    }),
+  });
+
+  if (status !== 201) {
+    throw new Error(`Falha ao enviar Pix (status ${status}): ${JSON.stringify(dados)}`);
+  }
+
+  return dados;
+}
+
+export async function consultarEnvio(idEnvio) {
+  const { status, dados } = await chamarEfi(`/v2/gn/pix/enviados/id-envio/${idEnvio}`);
+  if (status !== 200) {
+    throw new Error(`Falha ao consultar envio (status ${status}): ${JSON.stringify(dados)}`);
+  }
+  return dados;
+}
+
 export async function testarAutenticacao() {
   await obterAccessToken();
   return { ok: true };

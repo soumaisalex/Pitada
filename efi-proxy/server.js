@@ -1,5 +1,12 @@
 import express from "express";
-import { criarCobranca, consultarCobranca, testarAutenticacao, configurarWebhook } from "./lib/efiClient.js";
+import {
+  criarCobranca,
+  consultarCobranca,
+  testarAutenticacao,
+  configurarWebhook,
+  enviarPix,
+  consultarEnvio,
+} from "./lib/efiClient.js";
 
 const app = express();
 app.use(express.json());
@@ -62,6 +69,29 @@ app.post("/webhook/configurar", async (req, res) => {
     res.json(resultado);
   } catch (erro) {
     console.error("[erro] /webhook/configurar:", erro);
+    res.status(502).json({ erro: erro.message });
+  }
+});
+
+app.post("/envios", async (req, res) => {
+  try {
+    const { valor, chaveDestino, idEnvio, infoPagador } = req.body;
+    if (!valor || !chaveDestino || !idEnvio) {
+      return res.status(400).json({ erro: "Informe valor, chaveDestino e idEnvio." });
+    }
+    const resultado = await enviarPix({ valor, chaveDestino, idEnvio, infoPagador });
+    res.status(201).json(resultado);
+  } catch (erro) {
+    console.error("[erro] /envios:", erro);
+    res.status(502).json({ erro: erro.message });
+  }
+});
+
+app.get("/envios/:idEnvio", async (req, res) => {
+  try {
+    const resultado = await consultarEnvio(req.params.idEnvio);
+    res.json(resultado);
+  } catch (erro) {
     res.status(502).json({ erro: erro.message });
   }
 });

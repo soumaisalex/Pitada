@@ -59,6 +59,10 @@ export default function Perfil() {
         Adicionar crédito
       </Link>
 
+      <p className="link-secundario">
+        <Link to="/sacar">Sacar saldo</Link>
+      </p>
+
       <p className="link-secundario">Histórico de transações — em breve (Fase 4).</p>
 
       <hr className="divisor" style={{ marginTop: "1rem" }} />
