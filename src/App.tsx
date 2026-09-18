@@ -7,6 +7,8 @@ import Eventos from "./pages/Eventos";
 import AdminLojas from "./pages/AdminLojas";
 import AdicionarCredito from "./pages/AdicionarCredito";
 import Sacar from "./pages/Sacar";
+import NovaVenda from "./pages/NovaVenda";
+import Pagar from "./pages/Pagar";
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
       <Route path="/admin/lojas" element={<AdminLojas />} />
       <Route path="/adicionar-credito" element={<AdicionarCredito />} />
       <Route path="/sacar" element={<Sacar />} />
+      <Route path="/nova-venda" element={<NovaVenda />} />
+      <Route path="/p/:codigo" element={<Pagar />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );

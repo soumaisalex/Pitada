@@ -1,10 +1,11 @@
 import { useState, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState<string | null>(null);
@@ -16,7 +17,7 @@ export default function Login() {
     setEnviando(true);
     try {
       await login(email, senha);
-      navigate("/perfil");
+      navigate(searchParams.get("depois") || "/perfil");
     } catch (e) {
       setErro(e instanceof ApiError ? e.message : "Não foi possível entrar.");
     } finally {

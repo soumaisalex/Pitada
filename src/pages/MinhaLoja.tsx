@@ -1,4 +1,5 @@
 import { useEffect, useState, FormEvent, ChangeEvent } from "react";
+import { Link } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
 import { enviarImagem } from "../lib/upload";
@@ -202,6 +203,12 @@ export default function MinhaLoja() {
         <>
           <h2 className="rotulo-secao">{loja.nomeLoja}</h2>
           <p className="subtitulo">{RETRATO_STATUS[loja.status]}</p>
+
+          {loja.status === "aprovada" && (
+            <p className="link-secundario">
+              <Link to="/nova-venda">Registrar nova venda</Link>
+            </p>
+          )}
 
           {loja.status === "aprovada" && (
             <>
