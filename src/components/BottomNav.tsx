@@ -1,27 +1,45 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { User, Receipt, ScanLine, CalendarDays, Store, PlusCircle } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function BottomNav() {
   const { usuario } = useAuth();
+  const localizacao = useLocation();
+
   if (!usuario) return null;
+
+  const emTelaDeLoja = localizacao.pathname.startsWith("/minha-loja") || localizacao.pathname.startsWith("/nova-venda");
+  const botaoCentral =
+    usuario.isLojista && emTelaDeLoja
+      ? { to: "/nova-venda", rotulo: "Vender", Icone: PlusCircle }
+      : { to: "/scanner", rotulo: "Pagar", Icone: ScanLine };
 
   return (
     <nav className="navegacao-inferior">
       <NavLink to="/perfil" className="item-navegacao">
-        Perfil
+        <User size={20} />
+        <span>Perfil</span>
       </NavLink>
       <NavLink to="/transacoes" className="item-navegacao">
-        Transações
+        <Receipt size={20} />
+        <span>Transações</span>
       </NavLink>
-      <NavLink to="/scanner" className="botao-pagar-flutuante" aria-label="Pagar">
-        Pagar
+
+      <NavLink to={botaoCentral.to} className="item-navegacao item-navegacao-central" aria-label={botaoCentral.rotulo}>
+        <span className="botao-pagar-flutuante">
+          <botaoCentral.Icone size={24} />
+        </span>
+        <span>{botaoCentral.rotulo}</span>
       </NavLink>
+
       <NavLink to="/eventos" className="item-navegacao">
-        Eventos
+        <CalendarDays size={20} />
+        <span>Eventos</span>
       </NavLink>
       {usuario.isLojista && (
         <NavLink to="/minha-loja" className="item-navegacao">
-          Loja
+          <Store size={20} />
+          <span>Loja</span>
         </NavLink>
       )}
     </nav>
