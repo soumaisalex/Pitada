@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { User, Receipt, ScanLine, CalendarDays, Store, PlusCircle } from "lucide-react";
+import { User, Receipt, ScanLine, CalendarDays, Store, PlusCircle, Wallet } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function BottomNav() {
@@ -36,10 +36,16 @@ export default function BottomNav() {
         <CalendarDays size={20} />
         <span>Eventos</span>
       </NavLink>
-      {usuario.isLojista && (
+
+      {usuario.isLojista ? (
         <NavLink to="/minha-loja" className="item-navegacao">
           <Store size={20} />
           <span>Loja</span>
+        </NavLink>
+      ) : (
+        <NavLink to="/pix" className="item-navegacao">
+          <Wallet size={20} />
+          <span>Pix</span>
         </NavLink>
       )}
     </nav>

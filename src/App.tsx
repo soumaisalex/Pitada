@@ -11,6 +11,7 @@ import NovaVenda from "./pages/NovaVenda";
 import Pagar from "./pages/Pagar";
 import Transacoes from "./pages/Transacoes";
 import Scanner from "./pages/Scanner";
+import Pix from "./pages/Pix";
 import BottomNav from "./components/BottomNav";
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/p/:codigo" element={<Pagar />} />
         <Route path="/transacoes" element={<Transacoes />} />
         <Route path="/scanner" element={<Scanner />} />
+        <Route path="/pix" element={<Pix />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       <BottomNav />
