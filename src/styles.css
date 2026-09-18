@@ -177,3 +177,49 @@ body {
   font-size: 1.25rem;
   margin: 0 0 0.5rem;
 }
+
+.tela-com-navegacao {
+  padding-bottom: 6rem;
+}
+
+.navegacao-inferior {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--cor-fundo-alt);
+  border-top: 1px solid rgba(244, 240, 228, 0.12);
+  padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom));
+  z-index: 10;
+}
+
+.item-navegacao {
+  color: var(--cor-texto-suave);
+  text-decoration: none;
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 0.4rem 0.6rem;
+}
+
+.item-navegacao.active {
+  color: var(--cor-destaque);
+}
+
+.botao-pagar-flutuante {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-top: -1.5rem;
+  border-radius: 50%;
+  background: var(--cor-destaque);
+  color: #1b1204;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}

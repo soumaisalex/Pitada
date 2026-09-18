@@ -152,7 +152,7 @@ export default function MinhaLoja() {
 
   if (!usuario?.isLojista) {
     return (
-      <div className="tela">
+      <div className="tela tela-com-navegacao">
         <h1 className="marca">Pitada</h1>
         <p className="subtitulo">
           Essa área é só para quem também vende na feirinha. Ative essa opção no seu perfil se quiser abrir uma
@@ -162,10 +162,10 @@ export default function MinhaLoja() {
     );
   }
 
-  if (carregando) return <div className="tela">Carregando...</div>;
+  if (carregando) return <div className="tela tela-com-navegacao">Carregando...</div>;
 
   return (
-    <div className="tela">
+    <div className="tela tela-com-navegacao">
       <h1 className="marca">Pitada</h1>
       <p className="subtitulo">Minha loja</p>
       <hr className="divisor" />

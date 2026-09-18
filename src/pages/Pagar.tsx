@@ -57,11 +57,11 @@ export default function Pagar() {
     }
   }
 
-  if (carregandoAuth || carregando) return <div className="tela">Carregando...</div>;
+  if (carregandoAuth || carregando) return <div className="tela tela-com-navegacao">Carregando...</div>;
 
   if (pago) {
     return (
-      <div className="tela">
+      <div className="tela tela-com-navegacao">
         <h1 className="marca">Pitada</h1>
         <div className="mensagem-sucesso">Pagamento confirmado!</div>
         <p className="link-secundario">
@@ -72,7 +72,7 @@ export default function Pagar() {
   }
 
   return (
-    <div className="tela">
+    <div className="tela tela-com-navegacao">
       <h1 className="marca">Pitada</h1>
       <p className="subtitulo">Confirmar pagamento</p>
       <hr className="divisor" />

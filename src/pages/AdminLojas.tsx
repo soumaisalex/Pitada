@@ -50,7 +50,7 @@ export default function AdminLojas() {
 
   if (!usuario?.isAdmin) {
     return (
-      <div className="tela">
+      <div className="tela tela-com-navegacao">
         <h1 className="marca">Pitada</h1>
         <p className="subtitulo">Acesso restrito ao administrador.</p>
       </div>
@@ -58,7 +58,7 @@ export default function AdminLojas() {
   }
 
   return (
-    <div className="tela">
+    <div className="tela tela-com-navegacao">
       <h1 className="marca">Pitada</h1>
       <p className="subtitulo">Admin — Lojas</p>
       <hr className="divisor" />

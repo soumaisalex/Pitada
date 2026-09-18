@@ -79,7 +79,7 @@ export default function Eventos() {
   }
 
   return (
-    <div className="tela">
+    <div className="tela tela-com-navegacao">
       <h1 className="marca">Pitada</h1>
       <p className="subtitulo">Eventos da feirinha</p>
       <hr className="divisor" />

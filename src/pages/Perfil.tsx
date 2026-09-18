@@ -43,11 +43,11 @@ export default function Perfil() {
   }
 
   if (carregando || !usuario) {
-    return <div className="tela">Carregando...</div>;
+    return <div className="tela tela-com-navegacao">Carregando...</div>;
   }
 
   return (
-    <div className="tela">
+    <div className="tela tela-com-navegacao">
       <h1 className="marca">Pitada</h1>
       <p className="subtitulo">Olá, {usuario.primeiroNome}</p>
       <hr className="divisor" />
@@ -63,7 +63,9 @@ export default function Perfil() {
         <Link to="/sacar">Sacar saldo</Link>
       </p>
 
-      <p className="link-secundario">Histórico de transações — em breve (Fase 4).</p>
+      <p className="link-secundario">
+        <Link to="/transacoes">Ver histórico de transações</Link>
+      </p>
 
       <hr className="divisor" style={{ marginTop: "1rem" }} />
 
