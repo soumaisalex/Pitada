@@ -1,4 +1,5 @@
 import { useEffect, useState, FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
 
@@ -82,6 +83,9 @@ export default function Eventos() {
     <div className="tela tela-com-navegacao">
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
       <p className="subtitulo">Eventos da feirinha</p>
+      <p className="link-secundario">
+        <Link to="/lojas">Ver todas as lojas e avaliações</Link>
+      </p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

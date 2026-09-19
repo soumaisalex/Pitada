@@ -13,6 +13,8 @@ import Pagar from "./pages/Pagar";
 import Transacoes from "./pages/Transacoes";
 import Scanner from "./pages/Scanner";
 import Pix from "./pages/Pix";
+import Lojas from "./pages/Lojas";
+import LojaPublica from "./pages/LojaPublica";
 import BottomNav from "./components/BottomNav";
 import AvaliacaoPendente from "./components/AvaliacaoPendente";
 
@@ -34,6 +36,8 @@ export default function App() {
         <Route path="/transacoes" element={<Transacoes />} />
         <Route path="/scanner" element={<Scanner />} />
         <Route path="/pix" element={<Pix />} />
+        <Route path="/lojas" element={<Lojas />} />
+        <Route path="/loja/:id" element={<LojaPublica />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       <BottomNav />
