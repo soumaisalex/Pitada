@@ -13,6 +13,7 @@ import Admin from "./pages/Admin";
 import AdicionarCredito from "./pages/AdicionarCredito";
 import Sacar from "./pages/Sacar";
 import NovaVenda from "./pages/NovaVenda";
+import FeedVendas from "./pages/FeedVendas";
 import Pagar from "./pages/Pagar";
 import Transacoes from "./pages/Transacoes";
 import Scanner from "./pages/Scanner";
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/adicionar-credito" element={<AdicionarCredito />} />
         <Route path="/sacar" element={<Sacar />} />
         <Route path="/nova-venda" element={<NovaVenda />} />
+        <Route path="/vendas-ao-vivo" element={<FeedVendas />} />
         <Route path="/p/:codigo" element={<Pagar />} />
         <Route path="/transacoes" element={<Transacoes />} />
         <Route path="/scanner" element={<Scanner />} />

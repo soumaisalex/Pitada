@@ -231,6 +231,11 @@ export default function MinhaLoja() {
               <Link to="/nova-venda">Registrar nova venda</Link>
             </p>
           )}
+          {loja.status === "aprovada" && (
+            <p className="link-secundario">
+              <Link to="/vendas-ao-vivo">Ver vendas ao vivo</Link>
+            </p>
+          )}
 
           {loja.status === "aprovada" && (
             <>
