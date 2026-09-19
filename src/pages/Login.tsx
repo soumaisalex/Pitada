@@ -27,7 +27,11 @@ export default function Login() {
 
   return (
     <div className="tela">
-      <h1 className="marca">Pitada</h1>
+      <img
+        src="/pitada-logo.gif"
+        alt="Pitada"
+        style={{ width: "100%", maxWidth: 356, height: "auto", display: "block", marginBottom: "0.75rem" }}
+      />
       <p className="subtitulo">Entre para comprar e vender na feirinha.</p>
       <hr className="divisor" />
 
