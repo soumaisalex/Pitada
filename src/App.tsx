@@ -6,6 +6,10 @@ import MinhaLoja from "./pages/MinhaLoja";
 import Eventos from "./pages/Eventos";
 import AdminLojas from "./pages/AdminLojas";
 import AdminTransacoes from "./pages/AdminTransacoes";
+import AdminUsuarios from "./pages/AdminUsuarios";
+import AdminConfiguracoes from "./pages/AdminConfiguracoes";
+import AdminLogs from "./pages/AdminLogs";
+import Admin from "./pages/Admin";
 import AdicionarCredito from "./pages/AdicionarCredito";
 import Sacar from "./pages/Sacar";
 import NovaVenda from "./pages/NovaVenda";
@@ -27,8 +31,12 @@ export default function App() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/minha-loja" element={<MinhaLoja />} />
         <Route path="/eventos" element={<Eventos />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/admin/lojas" element={<AdminLojas />} />
         <Route path="/admin/transacoes" element={<AdminTransacoes />} />
+        <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+        <Route path="/admin/configuracoes" element={<AdminConfiguracoes />} />
+        <Route path="/admin/logs" element={<AdminLogs />} />
         <Route path="/adicionar-credito" element={<AdicionarCredito />} />
         <Route path="/sacar" element={<Sacar />} />
         <Route path="/nova-venda" element={<NovaVenda />} />

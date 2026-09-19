@@ -79,12 +79,7 @@ export default function Perfil() {
       )}
       {usuario.isAdmin && (
         <p className="link-secundario">
-          <Link to="/admin/lojas">Admin — Lojas</Link>
-        </p>
-      )}
-      {usuario.isAdmin && (
-        <p className="link-secundario">
-          <Link to="/admin/transacoes">Admin — Buscar transação</Link>
+          <Link to="/admin">Painel administrativo</Link>
         </p>
       )}
 
