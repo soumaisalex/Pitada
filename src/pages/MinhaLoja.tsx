@@ -175,7 +175,7 @@ export default function MinhaLoja() {
   if (!usuario?.isLojista) {
     return (
       <div className="tela tela-com-navegacao">
-        <h1 className="marca">Pitada</h1>
+        <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <p className="subtitulo">
           Essa área é só para quem também vende na feirinha. Ative essa opção no seu perfil se quiser abrir uma
           lojinha.
@@ -188,7 +188,7 @@ export default function MinhaLoja() {
 
   return (
     <div className="tela tela-com-navegacao">
-      <h1 className="marca">Pitada</h1>
+      <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
       <p className="subtitulo">Minha loja</p>
       <hr className="divisor" />
 

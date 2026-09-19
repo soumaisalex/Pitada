@@ -64,7 +64,7 @@ export default function AdicionarCredito() {
 
   return (
     <div className="tela tela-com-navegacao">
-      <h1 className="marca">Pitada</h1>
+      <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
       <p className="subtitulo">Adicionar crédito</p>
       <hr className="divisor" />
 

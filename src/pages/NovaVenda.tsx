@@ -91,7 +91,7 @@ export default function NovaVenda() {
   if (!usuario?.isLojista) {
     return (
       <div className="tela tela-com-navegacao">
-        <h1 className="marca">Pitada</h1>
+        <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <p className="subtitulo">Essa área é só para lojistas.</p>
       </div>
     );
@@ -99,7 +99,7 @@ export default function NovaVenda() {
 
   return (
     <div className="tela tela-com-navegacao">
-      <h1 className="marca">Pitada</h1>
+      <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
       <p className="subtitulo">Nova venda</p>
       <hr className="divisor" />
 

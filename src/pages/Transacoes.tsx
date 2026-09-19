@@ -44,7 +44,7 @@ export default function Transacoes() {
 
   return (
     <div className="tela tela-com-navegacao">
-      <h1 className="marca">Pitada</h1>
+      <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
       <p className="subtitulo">Transações</p>
       <hr className="divisor" />
 

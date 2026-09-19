@@ -62,7 +62,7 @@ export default function Pagar() {
   if (pago) {
     return (
       <div className="tela tela-com-navegacao">
-        <h1 className="marca">Pitada</h1>
+        <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <div className="mensagem-sucesso">Pagamento confirmado!</div>
         <p className="link-secundario">
           <Link to="/perfil">Voltar ao perfil</Link>
@@ -73,7 +73,7 @@ export default function Pagar() {
 
   return (
     <div className="tela tela-com-navegacao">
-      <h1 className="marca">Pitada</h1>
+      <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
       <p className="subtitulo">Confirmar pagamento</p>
       <hr className="divisor" />
 

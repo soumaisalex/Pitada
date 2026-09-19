@@ -51,6 +51,13 @@ body {
   color: var(--cor-destaque);
 }
 
+.logo-marca {
+  height: 28px;
+  width: auto;
+  display: block;
+  margin: 0 0 0.75rem;
+}
+
 .subtitulo {
   color: var(--cor-texto-suave);
   margin: 0 0 2rem;

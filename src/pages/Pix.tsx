@@ -6,7 +6,7 @@ export default function Pix() {
 
   return (
     <div className="tela tela-com-navegacao">
-      <h1 className="marca">Pitada</h1>
+      <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
       <p className="subtitulo">Pix</p>
       <hr className="divisor" />
 

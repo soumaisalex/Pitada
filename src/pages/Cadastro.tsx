@@ -31,7 +31,7 @@ export default function Cadastro() {
 
   return (
     <div className="tela">
-      <h1 className="marca">Pitada</h1>
+      <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
       <p className="subtitulo">Crie sua conta para comprar ou vender na feirinha.</p>
       <hr className="divisor" />
 
@@ -39,7 +39,7 @@ export default function Cadastro() {
 
       <form onSubmit={aoSubmeter}>
         <div className="campo">
-          <label htmlFor="nome">Nome</label>
+          <label htmlFor="nome">Nome completo</label>
           <input id="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
         </div>
         <div className="campo">

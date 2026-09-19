@@ -30,7 +30,7 @@ export default function Login() {
       <img
         src="/pitada-logo.gif"
         alt="Pitada"
-        style={{ width: "100%", maxWidth: 356, height: "auto", display: "block", marginBottom: "0.75rem" }}
+        style={{ width: "100%", maxWidth: 356, height: "auto", display: "block", margin: "0 auto 0.75rem" }}
       />
       <p className="subtitulo">Entre para comprar e vender na feirinha.</p>
       <hr className="divisor" />
