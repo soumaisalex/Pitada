@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
 import { enviarImagem } from "../lib/upload";
+import { gerarPdfQrEstatico } from "../lib/gerarPdfQr";
 
 interface Loja {
   id: string;
@@ -52,6 +53,8 @@ export default function MinhaLoja() {
   const [enviandoFoto, setEnviandoFoto] = useState(false);
   const [categoriaId, setCategoriaId] = useState("");
   const [enviando, setEnviando] = useState(false);
+  const [quantidadesPdf, setQuantidadesPdf] = useState<Record<string, number>>({});
+  const [gerandoPdfId, setGerandoPdfId] = useState<string | null>(null);
 
   async function carregarTudo() {
     setCarregando(true);
@@ -102,6 +105,25 @@ export default function MinhaLoja() {
       setErro(e instanceof ApiError ? e.message : "Não foi possível enviar a foto.");
     } finally {
       setEnviandoFoto(false);
+    }
+  }
+
+  async function baixarPdfQr(produto: Produto) {
+    if (!loja || !produto.codigoEstatico) return;
+    const quantidade = quantidadesPdf[produto.id] || 12;
+    setGerandoPdfId(produto.id);
+    try {
+      await gerarPdfQrEstatico({
+        nomeLoja: loja.nomeLoja,
+        nomeProduto: produto.nome,
+        valorPitadas: produto.valorPitadas,
+        codigoEstatico: produto.codigoEstatico,
+        quantidade,
+      });
+    } catch {
+      setErro("Não foi possível gerar o PDF.");
+    } finally {
+      setGerandoPdfId(null);
     }
   }
 
@@ -217,10 +239,34 @@ export default function MinhaLoja() {
 
               {produtos.length === 0 && <p className="subtitulo">Nenhum produto cadastrado ainda.</p>}
               {produtos.map((produto) => (
-                <p key={produto.id} className="subtitulo" style={{ marginBottom: "0.5rem" }}>
-                  {produto.nome} — {produto.valorPitadas} Pitadas
-                  {produto.codigoEstatico ? ` — código ${produto.codigoEstatico}` : ""}
-                </p>
+                <div key={produto.id} style={{ marginBottom: "1rem" }}>
+                  <p className="subtitulo" style={{ marginBottom: "0.35rem" }}>
+                    {produto.nome} — {produto.valorPitadas} Pitadas
+                    {produto.codigoEstatico ? ` — código ${produto.codigoEstatico}` : ""}
+                  </p>
+                  {produto.codigoEstatico && (
+                    <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                      <input
+                        type="number"
+                        min="1"
+                        style={{ width: "4.5rem" }}
+                        value={quantidadesPdf[produto.id] ?? 12}
+                        onChange={(e) =>
+                          setQuantidadesPdf((atual) => ({ ...atual, [produto.id]: Number(e.target.value) }))
+                        }
+                        aria-label={`Quantidade de cópias do QR de ${produto.nome}`}
+                      />
+                      <button
+                        className="botao-texto"
+                        style={{ border: "1px solid var(--cor-destaque)", borderRadius: 4, padding: "0.4rem 0.7rem" }}
+                        onClick={() => baixarPdfQr(produto)}
+                        disabled={gerandoPdfId === produto.id}
+                      >
+                        {gerandoPdfId === produto.id ? "Gerando PDF..." : "Baixar PDF de QR codes"}
+                      </button>
+                    </div>
+                  )}
+                </div>
               ))}
 
               <hr className="divisor" />

@@ -16,6 +16,7 @@
     "@neondatabase/serverless": "^0.10.0",
     "drizzle-orm": "^0.33.0",
     "jose": "^5.9.2",
+    "jspdf": "^2.5.2",
     "jsqr": "^1.4.0",
     "lucide-react": "^0.445.0",
     "qrcode": "^1.5.4",
