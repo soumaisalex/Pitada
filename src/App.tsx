@@ -5,6 +5,7 @@ import Perfil from "./pages/Perfil";
 import MinhaLoja from "./pages/MinhaLoja";
 import Eventos from "./pages/Eventos";
 import AdminLojas from "./pages/AdminLojas";
+import AdminTransacoes from "./pages/AdminTransacoes";
 import AdicionarCredito from "./pages/AdicionarCredito";
 import Sacar from "./pages/Sacar";
 import NovaVenda from "./pages/NovaVenda";
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/minha-loja" element={<MinhaLoja />} />
         <Route path="/eventos" element={<Eventos />} />
         <Route path="/admin/lojas" element={<AdminLojas />} />
+        <Route path="/admin/transacoes" element={<AdminTransacoes />} />
         <Route path="/adicionar-credito" element={<AdicionarCredito />} />
         <Route path="/sacar" element={<Sacar />} />
         <Route path="/nova-venda" element={<NovaVenda />} />

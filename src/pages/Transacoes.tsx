@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import FormularioCancelamento from "../components/FormularioCancelamento";
 
 interface Transacao {
   id: string;
@@ -35,11 +36,15 @@ export default function Transacoes() {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
 
-  useEffect(() => {
+  function carregar() {
     api<Transacao[]>("/transacoes")
       .then(setLista)
       .catch((e) => setErro(e instanceof ApiError ? e.message : "Não foi possível carregar suas transações."))
       .finally(() => setCarregando(false));
+  }
+
+  useEffect(() => {
+    carregar();
   }, []);
 
   return (
@@ -64,6 +69,9 @@ export default function Transacoes() {
           <p className="subtitulo" style={{ margin: 0, fontSize: "0.8rem" }}>
             Código: {t.codigo}
           </p>
+          {t.tipo === "compra" && t.direcao === "entrada" && t.status === "concluida" && (
+            <FormularioCancelamento transacaoId={t.id} aoCancelar={carregar} />
+          )}
         </div>
       ))}
     </div>

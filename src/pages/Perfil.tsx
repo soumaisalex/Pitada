@@ -82,6 +82,11 @@ export default function Perfil() {
           <Link to="/admin/lojas">Admin — Lojas</Link>
         </p>
       )}
+      {usuario.isAdmin && (
+        <p className="link-secundario">
+          <Link to="/admin/transacoes">Admin — Buscar transação</Link>
+        </p>
+      )}
 
       <hr className="divisor" style={{ marginTop: "1rem" }} />
 
