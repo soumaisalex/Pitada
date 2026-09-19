@@ -14,6 +14,7 @@ import Transacoes from "./pages/Transacoes";
 import Scanner from "./pages/Scanner";
 import Pix from "./pages/Pix";
 import BottomNav from "./components/BottomNav";
+import AvaliacaoPendente from "./components/AvaliacaoPendente";
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       <BottomNav />
+      <AvaliacaoPendente />
     </>
   );
 }

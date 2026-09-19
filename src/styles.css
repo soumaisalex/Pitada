@@ -190,6 +190,26 @@ body {
   padding-bottom: 6rem;
 }
 
+.sobreposicao-avaliacao {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 50;
+}
+
+.cartao-avaliacao {
+  background: var(--cor-fundo-alt);
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 24rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
 .navegacao-inferior {
   position: fixed;
   bottom: 0;
