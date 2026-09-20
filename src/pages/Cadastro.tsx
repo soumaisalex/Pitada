@@ -1,9 +1,9 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 
 export default function Cadastro() {
-  const { cadastrar } = useAuth();
+  const { cadastrar, usuario, carregando } = useAuth();
   const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [primeiroNome, setPrimeiroNome] = useState("");
@@ -15,13 +15,18 @@ export default function Cadastro() {
   const [erro, setErro] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
 
+  useEffect(() => {
+    if (!carregando && usuario) navigate("/perfil", { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carregando, usuario]);
+
   async function aoSubmeter(evento: FormEvent) {
     evento.preventDefault();
     setErro(null);
     setEnviando(true);
     try {
       await cadastrar({ nome, primeiroNome, email, senha, telefone, chavePix, isLojista });
-      navigate("/perfil");
+      navigate("/perfil", { replace: true });
     } catch (e) {
       setErro(e instanceof ApiError ? e.message : "Não foi possível criar sua conta.");
     } finally {
@@ -29,10 +34,12 @@ export default function Cadastro() {
     }
   }
 
+  if (carregando || usuario) return null;
+
   return (
     <div className="tela">
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Crie sua conta para comprar ou vender na feirinha.</p>
+      <p className="subtitulo-cabecalho">Crie sua conta para comprar ou vender na feirinha.</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

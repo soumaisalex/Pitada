@@ -26,6 +26,7 @@ body {
 }
 
 .tela {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -33,6 +34,33 @@ body {
   max-width: 26rem;
   margin: 0 auto;
   width: 100%;
+}
+
+.botao-voltar {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  background: none;
+  border: none;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+  padding: 0.25rem;
+  z-index: 5;
+}
+
+.barra-topo-scanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: calc(0.9rem + env(safe-area-inset-top)) 1rem 0.9rem;
+  background: rgba(22, 36, 27, 0.85);
+  color: var(--cor-texto);
+  text-align: center;
+  font-family: var(--fonte-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  z-index: 20;
 }
 
 @media (min-width: 768px) {
@@ -64,6 +92,14 @@ body {
   margin: 0 0 2rem;
   font-size: 0.95rem;
   line-height: 1.5;
+}
+
+.subtitulo-cabecalho {
+  color: var(--cor-texto-suave);
+  margin: 0 0 2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: center;
 }
 
 .divisor {
@@ -177,6 +213,43 @@ body {
   font-size: 2.5rem;
   color: var(--cor-destaque);
   margin: 0.25rem 0 1.5rem;
+}
+
+.grade-itens-pagamento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.item-pagamento-imagem {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--cor-fundo-alt);
+  display: block;
+}
+
+.item-pagamento-imagem-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  background: var(--cor-fundo-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--cor-texto-suave);
+}
+
+.item-pagamento-legenda {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--cor-texto-suave);
+  margin: 0.35rem 0 0;
 }
 
 .rotulo-secao {

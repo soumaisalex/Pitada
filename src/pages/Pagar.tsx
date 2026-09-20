@@ -2,11 +2,13 @@ import { useEffect, useState, FormEvent } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface ItemResumo {
   nome: string;
   quantidade: number;
   valorUnitario: string;
+  fotoUrl: string | null;
 }
 
 interface Resumo {
@@ -62,6 +64,7 @@ export default function Pagar() {
   if (pago) {
     return (
       <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
         <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <div className="mensagem-sucesso">Pagamento confirmado!</div>
         <p className="link-secundario">
@@ -73,8 +76,9 @@ export default function Pagar() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Confirmar pagamento</p>
+      <p className="subtitulo-cabecalho">Confirmar pagamento</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}
@@ -82,11 +86,25 @@ export default function Pagar() {
       {resumo && (
         <>
           <h2 className="rotulo-secao">{resumo.lojaNome}</h2>
-          {resumo.itens.map((item, i) => (
-            <p key={i} className="subtitulo" style={{ marginBottom: "0.25rem" }}>
-              {item.quantidade}x {item.nome} — {item.valorUnitario} Pitadas cada
-            </p>
-          ))}
+          <div className="grade-itens-pagamento">
+            {resumo.itens.map((item, i) =>
+              item.fotoUrl ? (
+                <div key={i}>
+                  <img src={item.fotoUrl} alt={item.nome} className="item-pagamento-imagem" />
+                  <p className="item-pagamento-legenda">
+                    {item.nome} ({item.quantidade}x)
+                  </p>
+                </div>
+              ) : (
+                <div key={i}>
+                  <div className="item-pagamento-imagem-placeholder">{item.nome}</div>
+                  <p className="item-pagamento-legenda">
+                    {item.nome} ({item.quantidade}x)
+                  </p>
+                </div>
+              )
+            )}
+          </div>
           <p className="saldo" style={{ fontSize: "2rem" }}>
             Total: {resumo.valorTotal} Pitadas
           </p>

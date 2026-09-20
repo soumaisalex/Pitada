@@ -2,6 +2,7 @@ import { useEffect, useState, FormEvent, useRef } from "react";
 import QRCode from "qrcode";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface Produto {
   id: string;
@@ -24,6 +25,7 @@ export default function NovaVenda() {
   const [status, setStatus] = useState<StatusVenda>("montando");
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [valorTotal, setValorTotal] = useState(0);
+  const [resumoPedido, setResumoPedido] = useState<{ nome: string; quantidade: number; subtotal: number }[]>([]);
   const [erro, setErro] = useState<string | null>(null);
   const [gerando, setGerando] = useState(false);
   const intervaloRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -54,6 +56,16 @@ export default function NovaVenda() {
     setErro(null);
     setGerando(true);
     try {
+      const resumo = carrinho.map((item) => {
+        const produto = produtos.find((p) => p.id === item.produtoId)!;
+        return {
+          nome: produto.nome,
+          quantidade: item.quantidade,
+          subtotal: Number(produto.valorPitadas) * item.quantidade,
+        };
+      });
+      setResumoPedido(resumo);
+
       const venda = await api<{ codigo: string; valor: number }>("/vendas", {
         method: "POST",
         body: JSON.stringify({ itens: carrinho }),
@@ -86,11 +98,13 @@ export default function NovaVenda() {
     setCarrinho([]);
     setQrDataUrl(null);
     setErro(null);
+    setResumoPedido([]);
   }
 
   if (!usuario?.isLojista) {
     return (
       <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
         <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <p className="subtitulo">Essa área é só para lojistas.</p>
       </div>
@@ -99,8 +113,9 @@ export default function NovaVenda() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Nova venda</p>
+      <p className="subtitulo-cabecalho">Nova venda</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}
@@ -135,6 +150,23 @@ export default function NovaVenda() {
           </p>
           <img src={qrDataUrl} alt="QR code de pagamento" style={{ width: "100%", maxWidth: 280, margin: "1rem 0" }} />
           <p className="link-secundario">Aguardando o cliente ler e confirmar o pagamento (válido por 1 minuto)...</p>
+
+          <hr className="divisor" />
+          <h2 className="rotulo-secao">Resumo do pedido</h2>
+          {resumoPedido.map((item, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.35rem" }}>
+              <span className="subtitulo" style={{ margin: 0 }}>
+                {item.nome} ({item.quantidade}x)
+              </span>
+              <span className="subtitulo" style={{ margin: 0 }}>
+                {item.subtotal} Pitadas
+              </span>
+            </div>
+          ))}
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.5rem", fontWeight: 600 }}>
+            <span>Total</span>
+            <span>{valorTotal} Pitadas</span>
+          </div>
         </>
       )}
 

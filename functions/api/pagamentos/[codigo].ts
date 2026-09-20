@@ -29,7 +29,7 @@ export const onRequestGet: PagesFunction<EnvAuth> = async ({ request, env, param
       JSON.stringify({
         tipo: "produto",
         lojaNome: loja.nomeLoja,
-        itens: [{ nome: produto.nome, quantidade: 1, valorUnitario: produto.valorPitadas }],
+        itens: [{ nome: produto.nome, quantidade: 1, valorUnitario: produto.valorPitadas, fotoUrl: produto.fotoUrl }],
         valorTotal: Number(produto.valorPitadas),
       }),
       { headers: { "content-type": "application/json" } }
@@ -52,7 +52,12 @@ export const onRequestGet: PagesFunction<EnvAuth> = async ({ request, env, param
   }
 
   const itens = await db
-    .select({ nome: produtos.nome, quantidade: itensTransacao.quantidade, valorUnitario: itensTransacao.valorUnitario })
+    .select({
+      nome: produtos.nome,
+      quantidade: itensTransacao.quantidade,
+      valorUnitario: itensTransacao.valorUnitario,
+      fotoUrl: produtos.fotoUrl,
+    })
     .from(itensTransacao)
     .innerJoin(produtos, eq(produtos.id, itensTransacao.produtoId))
     .where(eq(itensTransacao.transacaoId, venda.id));

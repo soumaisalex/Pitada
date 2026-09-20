@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 type StatusSaque = "formulario" | "pendente" | "concluida" | "cancelada";
 
@@ -53,8 +54,9 @@ export default function Sacar() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Sacar saldo</p>
+      <p className="subtitulo-cabecalho">Sacar saldo</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

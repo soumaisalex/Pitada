@@ -49,7 +49,7 @@ export default function Perfil() {
   return (
     <div className="tela tela-com-navegacao">
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Olá, {usuario.primeiroNome}</p>
+      <p className="subtitulo-cabecalho">Olá, {usuario.primeiroNome}</p>
       <hr className="divisor" />
 
       <p style={{ color: "var(--cor-texto-suave)", marginBottom: 0, fontSize: "0.9rem" }}>Seu saldo</p>

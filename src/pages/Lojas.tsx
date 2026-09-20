@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
 import { ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface Loja {
   id: string;
@@ -26,8 +27,9 @@ export default function Lojas() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Lojas da feirinha</p>
+      <p className="subtitulo-cabecalho">Lojas da feirinha</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

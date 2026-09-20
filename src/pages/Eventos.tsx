@@ -82,7 +82,7 @@ export default function Eventos() {
   return (
     <div className="tela tela-com-navegacao">
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Eventos da feirinha</p>
+      <p className="subtitulo-cabecalho">Eventos da feirinha</p>
       <p className="link-secundario">
         <Link to="/lojas">Ver todas as lojas e avaliações</Link>
       </p>

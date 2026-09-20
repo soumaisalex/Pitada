@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface Configuracao {
   chave: string;
@@ -48,6 +49,7 @@ export default function AdminConfiguracoes() {
   if (!usuario?.isAdmin) {
     return (
       <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
         <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <p className="subtitulo">Acesso restrito ao administrador.</p>
       </div>
@@ -56,8 +58,9 @@ export default function AdminConfiguracoes() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Admin — Configurações</p>
+      <p className="subtitulo-cabecalho">Admin — Configurações</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

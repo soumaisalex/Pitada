@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 export default function Admin() {
   const { usuario } = useAuth();
@@ -7,6 +8,7 @@ export default function Admin() {
   if (!usuario?.isAdmin) {
     return (
       <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
         <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <p className="subtitulo">Acesso restrito ao administrador.</p>
       </div>
@@ -15,8 +17,9 @@ export default function Admin() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Painel administrativo</p>
+      <p className="subtitulo-cabecalho">Painel administrativo</p>
       <hr className="divisor" />
 
       <p className="link-secundario">

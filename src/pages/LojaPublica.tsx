@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Star } from "lucide-react";
 import { ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface Comentario {
   nota: number;
@@ -58,6 +59,7 @@ export default function LojaPublica() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

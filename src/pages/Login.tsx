@@ -1,9 +1,9 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, usuario, carregando } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
@@ -11,19 +11,28 @@ export default function Login() {
   const [erro, setErro] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
 
+  useEffect(() => {
+    if (!carregando && usuario) {
+      navigate(searchParams.get("depois") || "/perfil", { replace: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carregando, usuario]);
+
   async function aoSubmeter(evento: FormEvent) {
     evento.preventDefault();
     setErro(null);
     setEnviando(true);
     try {
       await login(email, senha);
-      navigate(searchParams.get("depois") || "/perfil");
+      navigate(searchParams.get("depois") || "/perfil", { replace: true });
     } catch (e) {
       setErro(e instanceof ApiError ? e.message : "Não foi possível entrar.");
     } finally {
       setEnviando(false);
     }
   }
+
+  if (carregando || usuario) return null;
 
   return (
     <div className="tela">
@@ -32,7 +41,7 @@ export default function Login() {
         alt="Pitada"
         style={{ width: "100%", maxWidth: 356, height: "auto", display: "block", margin: "0 auto 0.75rem" }}
       />
-      <p className="subtitulo">Entre para comprar e vender na feirinha.</p>
+      <p className="subtitulo-cabecalho">Entre para comprar e vender na feirinha.</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

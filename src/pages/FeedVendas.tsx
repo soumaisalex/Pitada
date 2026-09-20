@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
 import { tocarSomVenda } from "../lib/som";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface Transacao {
   id: string;
@@ -54,6 +55,7 @@ export default function FeedVendas() {
   if (!usuario?.isLojista) {
     return (
       <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
         <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <p className="subtitulo">Essa área é só para lojistas.</p>
       </div>
@@ -62,8 +64,9 @@ export default function FeedVendas() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Vendas ao vivo</p>
+      <p className="subtitulo-cabecalho">Vendas ao vivo</p>
       <p className="link-secundario">
         Deixe esta aba aberta durante o evento para ouvir o som a cada nova venda. Se instalar como app na tela
         inicial, você também recebe um aviso mesmo com o app fechado (com o som padrão do celular).

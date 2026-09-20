@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface Cobranca {
   id: string;
@@ -64,8 +65,9 @@ export default function AdicionarCredito() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Adicionar crédito</p>
+      <p className="subtitulo-cabecalho">Adicionar crédito</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

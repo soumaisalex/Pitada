@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
 import { enviarImagem } from "../lib/upload";
+import { recortarImagemQuadrada } from "../lib/recortarImagemQuadrada";
 import { gerarPdfQrEstatico } from "../lib/gerarPdfQr";
 
 interface Loja {
@@ -100,7 +101,8 @@ export default function MinhaLoja() {
     setErro(null);
     setEnviandoFoto(true);
     try {
-      setFotoProduto(await enviarImagem(arquivo));
+      const arquivoQuadrado = await recortarImagemQuadrada(arquivo);
+      setFotoProduto(await enviarImagem(arquivoQuadrado));
     } catch (e) {
       setErro(e instanceof ApiError ? e.message : "Não foi possível enviar a foto.");
     } finally {
@@ -189,7 +191,7 @@ export default function MinhaLoja() {
   return (
     <div className="tela tela-com-navegacao">
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Minha loja</p>
+      <p className="subtitulo-cabecalho">Minha loja</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

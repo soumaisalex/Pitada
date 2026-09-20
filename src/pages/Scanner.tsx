@@ -85,15 +85,14 @@ export default function Scanner() {
 
   return (
     <div className="tela tela-com-navegacao" style={{ padding: 0, maxWidth: "100%" }}>
+      <div className="barra-topo-scanner">Aponte para o QR code</div>
+
       <div style={{ position: "relative", width: "100%", aspectRatio: "3 / 4", background: "#000", overflow: "hidden" }}>
         <video ref={videoRef} style={{ width: "100%", height: "100%", objectFit: "cover" }} muted playsInline />
         <canvas ref={canvasRef} style={{ display: "none" }} />
       </div>
 
       <div style={{ padding: "1.5rem" }}>
-        <h1 className="marca" style={{ fontSize: "1.5rem" }}>
-          Aponte para o QR code
-        </h1>
         {erro && <div className="mensagem-erro">{erro}</div>}
         <p className="link-secundario">
           <Link to="/perfil">Cancelar</Link>

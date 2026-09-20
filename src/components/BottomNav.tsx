@@ -2,11 +2,14 @@ import { NavLink, useLocation } from "react-router-dom";
 import { User, Receipt, ScanLine, CalendarDays, Store, PlusCircle, Wallet } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
+const ROTAS_SEM_NAVEGACAO = ["/login", "/cadastro", "/scanner"];
+
 export default function BottomNav() {
   const { usuario } = useAuth();
   const localizacao = useLocation();
 
   if (!usuario) return null;
+  if (ROTAS_SEM_NAVEGACAO.some((rota) => localizacao.pathname.startsWith(rota))) return null;
 
   const emTelaDeLoja = localizacao.pathname.startsWith("/minha-loja") || localizacao.pathname.startsWith("/nova-venda");
   const botaoCentral =

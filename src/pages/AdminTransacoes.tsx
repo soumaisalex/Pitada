@@ -2,6 +2,7 @@ import { useState, FormEvent } from "react";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
 import FormularioCancelamento from "../components/FormularioCancelamento";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface Transacao {
   id: string;
@@ -37,6 +38,7 @@ export default function AdminTransacoes() {
   if (!usuario?.isAdmin) {
     return (
       <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
         <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <p className="subtitulo">Acesso restrito ao administrador.</p>
       </div>
@@ -45,8 +47,9 @@ export default function AdminTransacoes() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Admin — Buscar transação</p>
+      <p className="subtitulo-cabecalho">Admin — Buscar transação</p>
       <hr className="divisor" />
 
       {erro && <div className="mensagem-erro">{erro}</div>}

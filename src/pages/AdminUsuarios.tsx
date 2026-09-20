@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth, ApiError } from "../context/AuthContext";
 import { api } from "../lib/api";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 interface Usuario {
   id: string;
@@ -61,6 +62,7 @@ export default function AdminUsuarios() {
   if (!usuarioLogado?.isAdmin) {
     return (
       <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
         <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
         <p className="subtitulo">Acesso restrito ao administrador.</p>
       </div>
@@ -69,8 +71,9 @@ export default function AdminUsuarios() {
 
   return (
     <div className="tela tela-com-navegacao">
+      <BotaoVoltar />
       <img src="/pitada-mark.png" alt="Pitada" className="logo-marca" />
-      <p className="subtitulo">Admin — Usuários</p>
+      <p className="subtitulo-cabecalho">Admin — Usuários</p>
       <hr className="divisor" />
 
       <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
